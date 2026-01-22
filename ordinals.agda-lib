@@ -1,0 +1,4 @@
+name: ordinals
+include: .
+depend: cubical
+flags: -WnoUnsupportedIndexedMatch
