@@ -37,7 +37,7 @@ open import FinChoice
 
 private
  variable
-  ℓ : Level
+  ℓ ℓ' : Level
 
 -- Section 2. Brouwer ordinals
 
@@ -487,8 +487,21 @@ NB : (f : ℕ → Brw) (y : Brw) {f↑ : increasing f}
    → limMin (limit f {f↑}) (succ y) ≡ limMin (limit f {f↑}) y
 NB f y = refl
 
-meta-lemma : _
-meta-lemma = characteristic-ordinal-up-to-reduction-lemma
+meta-lemma : (P : ℕ → Type ℓ)
+             (σ : (n : ℕ) → semi-dec (P n))
+             (F : Brw → Type ℓ') →
+             ((x : Brw) → isProp (F x)) →
+             {n : ℕ} →
+             ((σ : P semi-dec-str-up-to n) → F (Ψ⁺＿ n P σ)) →
+              F (Ψ̅＿ n P σ)
+meta-lemma P σ = characteristic-ordinal-up-to-reduction-lemma P σ
 
-meta-lemma' : _
-meta-lemma' = characteristic-ordinal-up-to-reduction-lemma₂
+meta-lemma₂
+ : (P : ℕ → Type ℓ)
+ → (σ : (n : ℕ) → semi-dec (P n))
+ → (F : Brw → Brw → Type ℓ')
+ → ((x y : Brw) → isProp (F x y))
+ → {n m : ℕ}
+ → ((σ : P semi-dec-str-up-to n)(τ : P semi-dec-str-up-to m) → F (Ψ⁺＿ n P σ) (Ψ⁺＿ m P τ))
+ → F (Ψ̅＿ n P σ) (Ψ̅＿ m P σ)
+meta-lemma₂ P σ = characteristic-ordinal-up-to-reduction-lemma₂ P σ
